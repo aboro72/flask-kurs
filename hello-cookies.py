@@ -1,4 +1,4 @@
-from flask import Flask, url_for, request, redirect, render_template
+from flask import Flask, url_for, request, redirect, render_template, make_response
 from werkzeug.utils import secure_filename
 import os
 
@@ -35,14 +35,18 @@ def index():
 
 @app.route("/login", methods=['POST', 'GET'])
 def login():
-    name = ' '
+    cookie = request.cookies.get('username')
+    if cookie is not None:
+        return "Hallo " + cookie
     if request.method == 'POST':
         name = request.form['name']
 
     else:
         name = request.args.get('name')
-    print(name)
-    return "Hello " + name + "!"
+
+    resp = make_response("Hello " + name + "!")
+    resp.set_cookie('username', name)
+    return resp
 
 
 if __name__ == "__main__":
