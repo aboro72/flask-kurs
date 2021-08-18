@@ -4,9 +4,7 @@ from RestplusAPI.api.myapi import api
 product = api.model('Product', {
     'id': fields.Integer(readonly=True, description=' The identifier of the product'),
     'name': fields.String(required=True, description='Product name'),
-    'category_id': fields.Integer(attribute='category.id'),
-    'category_name': fields.String(attribute='category.name'),
-   })
+})
 
 category = api.model('Product category'), {
     'id': fields.Integer(readonly=True, description='The identifier of the category'),
